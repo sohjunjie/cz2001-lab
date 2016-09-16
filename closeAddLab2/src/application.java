@@ -12,7 +12,7 @@ public class application {
 		while (recordCount < dataSize) {
 
 			//hash randomly generated key, value to hashmap
-			clientKey = 0 + (int) (Math.random() * 1000000);	//client id
+			clientKey = 1 + (int) (Math.random() * 100000);	//client id
 			client = "Client #" + (++recordCount);				//client name
 			clientIDs[recordCount-1] = clientKey;
 			clientHashMap.put(clientKey, client);
