@@ -2,7 +2,7 @@
 
 #### This repository will contain all lab files we will be working on for CZ2001 Algorithms
 
-## Instructions
+## Checking out project into Eclipse IDE
 Follow the following instructions to clone the project files into your Eclipse IDE
 
 1. Open the welcome screen (help > welcome)
@@ -12,3 +12,8 @@ Follow the following instructions to clone the project files into your Eclipse I
    ![pic1](https://cloud.githubusercontent.com/assets/19767716/18589122/d7512380-7c5b-11e6-8f73-1be68094cb79.png)
 
 4. Continue clicking next and the project will be in your eclipse
+
+
+## Cloning project
+
+   git@github.com:sohjunjie/cz2001-lab.git
