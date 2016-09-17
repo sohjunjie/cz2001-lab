@@ -41,7 +41,7 @@ public class HashTestApp {
 		else
 			System.out.println("****************Failure cases****************");
         	
-    	System.out.println("Test for " + numOfData + " data");
+    		System.out.println("Test for " + numOfData + " data");
     	
 		for(int rep = 0; rep < repitition; rep++){
 			//randomize list
@@ -56,7 +56,7 @@ public class HashTestApp {
         	//create closed hashmap
 	        HashMap clientHashMap = new HashMap();
 			for(int i = 0; i < numOfData; i ++){
-				//can actually put string into value
+				//can actually put any string into value (not impt for this case)
 				clientHashMap.put(listOfNumbers.get(i), "Client #" + listOfNumbers.get(i));
 			}
 	        
