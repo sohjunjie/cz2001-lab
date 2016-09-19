@@ -14,8 +14,8 @@ public class HashMap {
  
 	public String get(int key) {
 		int hash = (key % TABLE_SIZE);
-		getProbeCount++;
 		if (table[hash] == null){
+			getProbeCount++;
 			return "";
 		} else {
 			LinkedHashEntry entry = table[hash];
