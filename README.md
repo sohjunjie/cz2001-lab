@@ -29,8 +29,8 @@ Follow the following instructions to clone the project files into your Eclipse I
 All local development and changes to the master copy should be done in
 appropriately named branches
 
-Do not merge your changes directly into your local master branch and push to Git
-unless you know what you are doing!!!
+**Do not** merge your changes directly into your local master branch and push to Git
+**unless** you know what you are doing!!!
 
 If you are done developing the component you are working on, push your
 branch to GitHub by doing:
@@ -44,5 +44,5 @@ After that, visit the
 pull request to the `master` branch.
 
 Give your pull request a title and describe what you are trying to do
-and self-review your code. Only merge to master if you are happy with 
+and self-review your code. Merge to master only if you are sure of 
 your changes.
