@@ -45,4 +45,4 @@ pull request to the `master` branch.
 
 Give your pull request a title and describe what you are trying to do
 and self-review your code. Merge to master only if you are sure of 
-your changes.
+your changes. If not, get someone to review your code.
