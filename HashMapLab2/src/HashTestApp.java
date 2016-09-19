@@ -26,16 +26,19 @@ public class HashTestApp {
 	}
 
 	public static void startTest(ArrayList<Integer> listOfNumbers,int numOfData,int repetition, boolean success){
-
-		long start			= 0;
-		long end			= 0;
-		double probeCount	= 0;
-		double timeClosed	= 0;
-		double probeClosed	= 0;
-		double timeOpen		= 0;
-		double probeOpen 	= 0;
-		int target			= 0;
-
+		
+		long start				= 0;
+		long end				= 0;
+		double probeCount		= 0;
+		double timeClosed		= 0;
+		double probeClosed		= 0;
+		double timeOpen			= 0;
+		double probeOpen 		= 0;
+		int target				= 0;
+		double putProbeCount 	= 0;
+		double putTimeClosed	= 0;
+		double putProbeClosed	= 0;
+		
 		if(success)
 			System.out.println("****************Success cases****************");
 		else
@@ -54,12 +57,18 @@ public class HashTestApp {
 	        	target = listOfNumbers.get(numOfData+1); //this value will not be in the list
 
         	//create closed hashmap
+	        start = System.nanoTime();
 	        HashMap clientHashMap = new HashMap();
 			for(int i = 0; i < numOfData; i ++){
 				//can actually put any string into value (not impt for this case)
 				clientHashMap.put(listOfNumbers.get(i), "Client #" + listOfNumbers.get(i));
 			}
+			end	= System.nanoTime();
 
+			putProbeCount 	= clientHashMap.getPutProbeCount();
+			putTimeClosed	+= end-start;
+			putProbeClosed	+= 0;			
+			
         	//start of closed address testing
         	start 		= System.nanoTime();
         	clientHashMap.get(target);
@@ -83,8 +92,10 @@ public class HashTestApp {
 		}
 		System.out.println("===========================");
 		System.out.println("Averages for " + numOfData + " data test cases for " + repetition+" times");
-		System.out.println("Closed addressing average time = " + (timeClosed/repetition));
-		System.out.println("Closed addressing average probes = " + (probeClosed/repetition));
+		System.out.println("Closed addressing average search time = " + (timeClosed/repetition));
+		System.out.println("Closed addressing average search probes = " + (probeClosed/repetition));
+		System.out.println("Closed addressing average put time = " + (putTimeClosed/repetition));
+		System.out.println("Closed addressing average put probes = " + (putProbeClosed/repetition));
 		System.out.println("Open addressing average time = " + (timeOpen/repetition));
 		System.out.println("Open addressing average probes = " + (probeOpen/repetition));
 		System.out.println("===========================");
