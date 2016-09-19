@@ -64,7 +64,7 @@ public class HashTestApp {
         	start 		= System.nanoTime();
         	clientHashMap.get(target);
         	end   		= System.nanoTime();
-        	probeCount 	= clientHashMap.getTimesSearch();
+        	probeCount 	= clientHashMap.getGetProbeCount();
 
         	//sum for time and probes
         	timeClosed 	+= end-start;

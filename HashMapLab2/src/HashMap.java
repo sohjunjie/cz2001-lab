@@ -1,8 +1,8 @@
 public class HashMap {
 
 	private final static int TABLE_SIZE = 1000;
-	private int timesSearch = 0;
-	private long totalTimesSearch = 0;
+	private int getProbeCount = 0;
+	private int putProbeCount = 0;
 	
 	LinkedHashEntry[] table;
 
@@ -14,20 +14,16 @@ public class HashMap {
  
 	public String get(int key) {
 		int hash = (key % TABLE_SIZE);
+		getProbeCount++;
 		if (table[hash] == null){
-			timesSearch++;
-			totalTimesSearch++;
 			return "";
 		} else {
 			LinkedHashEntry entry = table[hash];
 			while (entry != null && entry.getKey() != key){
 				entry = entry.getNext();
-				timesSearch++;
-				totalTimesSearch++;
+				getProbeCount++;
 			}
-
-			timesSearch++;
-			totalTimesSearch++;
+			getProbeCount++;
 			if (entry == null)
 				return "";
 			else
@@ -36,13 +32,17 @@ public class HashMap {
 	}
    
 	public void put(int key, String value) {
-		int hash = (key % TABLE_SIZE);    
-		if (table[hash] == null)      
-			table[hash] = new LinkedHashEntry(key, value);            
-		else {                  
+		int hash = (key % TABLE_SIZE);
+		if (table[hash] == null){
+			putProbeCount++;
+			table[hash] = new LinkedHashEntry(key, value);
+		} else {                  
 			LinkedHashEntry entry = table[hash];                  
-			while (entry.getNext() != null && entry.getKey() != key)                        
-				entry = entry.getNext();                  
+			while (entry.getNext() != null && entry.getKey() != key){
+				putProbeCount++;
+				entry = entry.getNext();
+			}
+			putProbeCount++;
 			if (entry.getKey() == key)
 				entry.setValue(value);
 			else
@@ -68,14 +68,16 @@ public class HashMap {
 		}
 	}
 
-	public int getTimesSearch(){
-		int x = timesSearch;
-		timesSearch = 0;
+	public int getGetProbeCount(){
+		int x = getProbeCount;
+		getProbeCount = 0;
+		return x;
+	}
+
+	public int getPutProbeCount(){
+		int x = putProbeCount;
+		putProbeCount = 0;
 		return x;
 	}
 	
-	public long getTotalTimesSearch(){
-		return totalTimesSearch;
-	}
-
 }
