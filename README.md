@@ -17,7 +17,32 @@ Follow the following instructions to clone the project files into your Eclipse I
 
 
 
-
 ## Cloning project
 
    git@github.com:sohjunjie/cz2001-lab.git
+
+
+## Pull Request, additions, changes to code, etc
+
+**Notice to collaborators performing edits on the project.**
+
+All local development and changes to the master copy should be done in
+appropriately named branches
+
+Do not merge your changes directly into your local master branch and push to Git
+unless you know what you are doing!!!
+
+If you are done developing the component you are working on, push your
+branch to GitHub by doing:
+
+`git push -u origin <branch_name>`
+
+After that, visit the
+
+[Git repository page](//github.com/sohjunjie/cz2001-lab/) and open a
+
+pull request to the `master` branch.
+
+Give your pull request a title and describe what you are trying to do
+and self-review your code. Only merge to master if you are happy with 
+your changes.
