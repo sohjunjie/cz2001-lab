@@ -1,3 +1,4 @@
 test:
   override:
+    - javac -d HashMapLab2\bin -classpath HashMapLab2\bin HashMapLab2\src\HashTestApp.java
     - java -classpath HashMapLab2\bin HashTestApp
