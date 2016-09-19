@@ -13,11 +13,13 @@ public class HashTestApp {
 		int numOfRepitition = 1000;
 
 		//step 2:
-		closedHashingExample(5, 3);//data in map
+		closedHashingExample(5, 0);//data in map
 		closedHashingExample(5, 6);//data not in map
 		//add open
+		openHashingExample(5, 4);//data in map
+		openHashingExample(5, 5);//data not in map
 
-		
+
 		//generate a list of values from 1 to 100,000
 		ArrayList<Integer> listOfNumbers = generateList(maxData);
 
@@ -48,7 +50,17 @@ public class HashTestApp {
 	}
 
 	public static void openHashingExample(int numOfValues, int search){
+		OpenAddressingHashMap clientHashMap = new OpenAddressingHashMap();
+		for(int i = 0; i < numOfValues; i ++){
+			//dummy string
+			clientHashMap.putUsingLinearProbing(i, "Client #" + i);
+			//clientHashMap.putUsingDoubleHashing(i, "Client #" + i);
+		}
 
+		String value = clientHashMap.getUsingLinearProbing(search);
+		//String value = clientHashMap.getUsingDoubleHashing(search);
+		
+		System.out.println("Key belongs to " + value);
 	}
 
 
@@ -57,14 +69,18 @@ public class HashTestApp {
 		long start				= 0;
 		long end				= 0;
 		double probeCount		= 0;
-		double timeClosed		= 0;
-		double probeClosed		= 0;
-		double timeOpen			= 0;
-		double probeOpen 		= 0;
-		double putProbeClosed 	= 0;
-		double putTimeClosed 	= 0;
 		double putProbeCount	= 0;
 		int target				= 0;
+		
+		double timeClosed		= 0;
+		double probeClosed		= 0;
+		double putProbeClosed 	= 0;
+		double putTimeClosed 	= 0;
+		
+		double timeOpen			= 0;
+		double probeOpen 		= 0;
+		double putProbeOpen 	= 0;
+		double putTimeOpen	 	= 0;
 
 		if(success)
 			System.out.println("****************Success cases****************");
@@ -107,11 +123,35 @@ public class HashTestApp {
         	probeClosed += probeCount;
 
         	//create open hashmap here
+	        start = System.nanoTime();
+	        OpenAddressingHashMap openHashMap = new OpenAddressingHashMap();
+			for(int i = 0; i < numOfData; i ++){
+				//dummy string
+				
+				openHashMap.putUsingLinearProbing(listOfNumbers.get(i), "Client #" + listOfNumbers.get(i));
+				//openHashMap.putUsingDoubleHashing(listOfNumbers.get(i), "Client #" + listOfNumbers.get(i));
+				
+			}
+			end = System.nanoTime();
+			
+			putTimeOpen 	+= end-start;
+			
+			putProbeCount	= openHashMap.getPutProbeCount();	
+			//putProbeCount	= openHashMap.getPutProbeCountDHash();	
+			
+			putProbeOpen 	+= putProbeCount;
 
         	//start of open address testing
         	start 		= System.nanoTime();
-        	probeCount 	= testOpenAddr(listOfNumbers,target,numOfData);
+        	
+        	openHashMap.getUsingLinearProbing(target);
+        	//openHashMap.getUsingDoubleHashing(target);
+        	
         	end   		= System.nanoTime();
+        	
+        	probeCount 	= openHashMap.getGetProbeCount();
+        	//probeCount 	= openHashMap.getGetProbeCountDHash();
+        	
 
         	//sum for time and probes
         	timeOpen 	+= end-start;
@@ -126,6 +166,8 @@ public class HashTestApp {
 
 		System.out.println("Open addressing average time = " + (timeOpen/repitition));
 		System.out.println("Open addressing average probes = " + (probeOpen/repitition));
+		System.out.println("Open addressing average put time = " + (putTimeOpen/repitition/numOfData));
+		System.out.println("Open addressing average put probes = " + (putProbeOpen/repitition/numOfData));
 		System.out.println("===========================");
 	}
 	
@@ -135,12 +177,6 @@ public class HashTestApp {
             list.add(new Integer(j));
         }
         return list;
-	}
-
-	// if needed
-	private static int testOpenAddr(ArrayList<Integer> testList, int target, int size){
-
-		return 0;
 	}
 
 }
