@@ -1,3 +1,7 @@
+machine:
+  java:
+    version: openjdk7
+
 test:
   override:
     - javac -d cz2001-lab/HashMapLab2/bin -classpath cz2001-lab/HashMapLab2/bin cz2001-lab/HashMapLab2/src/HashTestApp.java
