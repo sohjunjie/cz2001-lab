@@ -1,0 +1,3 @@
+test:
+  override:
+    - java -classpath HashMapLab2\bin HashTestApp
