@@ -1,4 +1,3 @@
-
 public class HashEntry {
 	private int key;
 	private String value;
