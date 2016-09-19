@@ -4,5 +4,6 @@ machine:
 
 test:
   override:
+    - dir
     - javac -d cz2001-lab/HashMapLab2/bin -classpath cz2001-lab/HashMapLab2/bin cz2001-lab/HashMapLab2/src/HashTestApp.java
     - java -classpath cz2001-lab/HashMapLab2/bin HashTestApp
