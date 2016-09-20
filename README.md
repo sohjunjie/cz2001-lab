@@ -19,7 +19,7 @@ Follow the following instructions to clone the project files into your Eclipse I
 
 ## Cloning project
 
-   git@github.com:sohjunjie/cz2001-lab.git
+   git clone git@github.com:sohjunjie/cz2001-lab.git
 
 
 ## Pull Request, additions, changes to code, etc
