@@ -4,6 +4,6 @@ machine:
 
 test:
   override:
-    - javac -d HashMapLab2/bin -classpath HashMapLab2/bin HashMapLab2/src/*.java
-    - javac -d SortingLab3/bin -classpath SortingLab3/bin SortingLab3/src/*.java
+    - javac -d HashMapLab2/bin HashMapLab2/src/*.java
+    - javac -d SortingLab3/bin -cp SortingLab3/lib/*.jar SortingLab3/src/*.java
 #    - java -classpath HashMapLab2/bin HashTestApp
