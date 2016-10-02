@@ -21,7 +21,7 @@ public class SortingTestApp {
 	public static ArrayList<SortStatistic> descQuickSortStatistic = new ArrayList<SortStatistic>();
 	
 	public static void main(String[] args) {
-
+		
 		generateCSVDataSet();
 		
 		readCSVDataSet();

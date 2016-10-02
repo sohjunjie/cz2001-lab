@@ -1,6 +1,6 @@
 public class MergeSort {
 	
-	private static int comparisonCount = 0;
+	public static int comparisonCount = 0;
 	
 	public static int getCompCount() {
 		int x;
