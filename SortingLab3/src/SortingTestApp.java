@@ -13,9 +13,15 @@ public class SortingTestApp {
 	
 	public static void main(String[] args) {
 
-		generateCSVDataSet();
+		int[] E = {5,3,7,2,1};
+		MergeSort.mergeSort(E, 0, 4);
+		
+		for(int i=0;i<E.length;i++)
+			System.out.println(E[i]);
 
-		readCSVDataSet();
+//		generateCSVDataSet();
+//
+//		readCSVDataSet();
 
 	}
 
