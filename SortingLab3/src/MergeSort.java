@@ -2,7 +2,7 @@ public class MergeSort {
 	
 	private static int comparisonCount = 0;
 	
-	public static int getComparisonCount() {
+	public static int getCompCount() {
 		int x;
 		x = comparisonCount;
 		comparisonCount = 0;
