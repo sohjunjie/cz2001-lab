@@ -9,29 +9,87 @@ import com.opencsv.CSVWriter;
 public class SortingTestApp {
 	
 	public static final Path 	dataPath 	= Paths.get(System.getProperty("user.dir"), "data");
+	public static final Path 	resultPath 	= Paths.get(System.getProperty("user.dir"), "result");
 	public static final int[] 	numOfData 	= {2000,4000,6000,8000,10000};
 	
+	public static ArrayList<SortStatistic> randMergeSortStatistic = new ArrayList<SortStatistic>();
+	public static ArrayList<SortStatistic> asceMergeSortStatistic = new ArrayList<SortStatistic>();
+	public static ArrayList<SortStatistic> descMergeSortStatistic = new ArrayList<SortStatistic>();
+
+	public static ArrayList<SortStatistic> randQuickSortStatistic = new ArrayList<SortStatistic>();
+	public static ArrayList<SortStatistic> asceQuickSortStatistic = new ArrayList<SortStatistic>();
+	public static ArrayList<SortStatistic> descQuickSortStatistic = new ArrayList<SortStatistic>();
+	
 	public static void main(String[] args) {
-
-		int[] E = {5,3,7,2,1};
-		MergeSort.mergeSort(E, 0, 4);
 		
-		for(int i=0;i<E.length;i++)
-			System.out.println(E[i]);
-
-//		generateCSVDataSet();
-//
-//		readCSVDataSet();
-
+		generateCSVDataSet();
+		
+		readCSVDataSet();
+		
+		generateCSVResult();
+		
 	}
 
+	public static void generateCSVResult(){
+
+		Path randMergePath = Paths.get(resultPath.toString(), "mergesort_rand.csv");
+		Path asceMergePath = Paths.get(resultPath.toString(), "mergesort_asce.csv");
+		Path descMergePath = Paths.get(resultPath.toString(), "mergesort_desc.csv");
+		
+		Path randQuickPath = Paths.get(resultPath.toString(), "quicksort_rand.csv");
+		Path asceQuickPath = Paths.get(resultPath.toString(), "quicksort_asce.csv");
+		Path descQuickPath = Paths.get(resultPath.toString(), "quicksort_desc.csv");
+		
+		try {
+			
+			writeSortStatsCSV(randMergePath.toString(), randMergeSortStatistic);
+			writeSortStatsCSV(asceMergePath.toString(), asceMergeSortStatistic);
+			writeSortStatsCSV(descMergePath.toString(), descMergeSortStatistic);
+
+//			writeSortStatsCSV(randQuickPath.toString(), randQuickSortStatistic);
+//			writeSortStatsCSV(asceQuickPath.toString(), asceQuickSortStatistic);
+//			writeSortStatsCSV(descQuickPath.toString(), descQuickSortStatistic);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static void writeSortStatsCSV(String writePath, ArrayList<SortStatistic> statsToWrite) throws IOException{
+
+		CSVWriter writer = new CSVWriter(new FileWriter(writePath));
+		
+		// CSV header row
+		writer.writeNext(new String[] {"array_size", "comparison_count", "nano_time_taken"});
+		
+		// CSV result row
+		for (SortStatistic record : statsToWrite) {
+			String[] data = {	Integer.toString(record.nsize), 
+								Integer.toString(record.keyCompCount), 
+								Long.toString(record.timeTaken)
+							};
+			writer.writeNext(data);
+		}
+
+		writer.close();
+
+	}
 	
 	public static void readCSVDataSet(){
 
+		long start, end;
 		Path randPath, ascePath, descPath;
-		ArrayList<Integer> randNumberList = new ArrayList<Integer>();
-		ArrayList<Integer> asceNumberList = new ArrayList<Integer>();
-		ArrayList<Integer> descNumberList = new ArrayList<Integer>();
+		
+		//array for merge sort
+		int[] randNumberArray = null;
+		int[] asceNumberArray = null;
+		int[] descNumberArray = null;
+
+		//array for quick sort
+		int[] randNumberArray2 = null;
+		int[] asceNumberArray2 = null;
+		int[] descNumberArray2 = null;
 		
 		for (int maxData  : numOfData) {
 
@@ -40,12 +98,35 @@ public class SortingTestApp {
 			descPath = Paths.get(dataPath.toString(), maxData + "desc.csv");
 
 			try {
-				randNumberList = readCSVToArrayList(randPath.toString());
-				asceNumberList = readCSVToArrayList(ascePath.toString());
-				descNumberList = readCSVToArrayList(descPath.toString());
+				randNumberArray = readCSVToArray(randPath.toString(), maxData);
+				asceNumberArray = readCSVToArray(ascePath.toString(), maxData);
+				descNumberArray = readCSVToArray(descPath.toString(), maxData);
+				randNumberArray2 = randNumberArray.clone();
+				asceNumberArray2 = asceNumberArray.clone();
+				descNumberArray2 = descNumberArray.clone();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
+			// START MERGE SORT STATISTICS RECORDING
+			start 	= System.nanoTime();
+			MergeSort.mergeSort(randNumberArray, 0, maxData-1);
+			end 	= System.nanoTime();
+			randMergeSortStatistic.add(new SortingTestApp().new SortStatistic(maxData, MergeSort.getCompCount(), end-start));
+
+			start 	= System.nanoTime();
+			MergeSort.mergeSort(asceNumberArray, 0, maxData-1);
+			end 	= System.nanoTime();
+			asceMergeSortStatistic.add(new SortingTestApp().new SortStatistic(maxData, MergeSort.getCompCount(), end-start));
+			
+			start 	= System.nanoTime();
+			MergeSort.mergeSort(descNumberArray, 0, maxData-1);
+			end 	= System.nanoTime();
+			descMergeSortStatistic.add(new SortingTestApp().new SortStatistic(maxData, MergeSort.getCompCount(), end-start));
+			
+			
+			// START QUICK SORT STATISTICS RECORDING
+			
 
 		}
 
@@ -55,20 +136,20 @@ public class SortingTestApp {
 	public static void generateCSVDataSet(){
 
 		Path randPath, ascePath, descPath;
-		ArrayList<Integer> randNumberList = new ArrayList<Integer>();
-		ArrayList<Integer> asceNumberList = new ArrayList<Integer>();
-		ArrayList<Integer> descNumberList = new ArrayList<Integer>();		
+		ArrayList<Integer> randNumberArray = new ArrayList<Integer>();
+		ArrayList<Integer> asceNumberArray = new ArrayList<Integer>();
+		ArrayList<Integer> descNumberArray = new ArrayList<Integer>();		
 		
 		for (int maxData  : numOfData) {
 
-			randNumberList.clear();
-			asceNumberList.clear();
-			descNumberList.clear();
+			randNumberArray.clear();
+			asceNumberArray.clear();
+			descNumberArray.clear();
 
 			for (int j=1; j<=maxData; j++){
-				randNumberList.add(1 + (int) (Math.random() * maxData));
-				asceNumberList.add(j);
-				descNumberList.add(maxData-j+1);
+				randNumberArray.add(1 + (int) (Math.random() * maxData));
+				asceNumberArray.add(j);
+				descNumberArray.add(maxData-j+1);
 			}
 
 			randPath = Paths.get(dataPath.toString(), maxData + "rand.csv");
@@ -76,9 +157,9 @@ public class SortingTestApp {
 			descPath = Paths.get(dataPath.toString(), maxData + "desc.csv");
 
 			try {
-				writeArrayListCSV(randNumberList, randPath.toString());
-				writeArrayListCSV(asceNumberList, ascePath.toString());
-				writeArrayListCSV(descNumberList, descPath.toString());
+				writeArrayListCSV(randNumberArray, randPath.toString());
+				writeArrayListCSV(asceNumberArray, ascePath.toString());
+				writeArrayListCSV(descNumberArray, descPath.toString());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -130,6 +211,20 @@ public class SortingTestApp {
 		
 		csvReader.close();
 		return returnArray;
+		
+	}
+	
+	
+	public class SortStatistic {
+		public int nsize;
+		public long timeTaken;
+		public int keyCompCount;
+		
+		public SortStatistic(int nsize, int keyCompCount, long timeTaken) {
+			this.nsize = nsize;
+			this.timeTaken = timeTaken;
+			this.keyCompCount = keyCompCount;
+		}
 		
 	}
 	
