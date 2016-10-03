@@ -28,9 +28,8 @@ public class SortingTestApp {
 		
 		generateCSVResult();
 		
-		printStatsResult();
-		
-		
+		printStatsResult();		
+
 	}
 	
 	public static void printStatsResult() {
