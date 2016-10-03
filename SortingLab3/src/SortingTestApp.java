@@ -20,6 +20,7 @@ public class SortingTestApp {
 	public static ArrayList<SortStatistic> asceQuickSortStatistic = new ArrayList<SortStatistic>();
 	public static ArrayList<SortStatistic> descQuickSortStatistic = new ArrayList<SortStatistic>();
 	
+	
 	public static void main(String[] args) {
 		
 		generateCSVDataSet();
@@ -31,6 +32,7 @@ public class SortingTestApp {
 		printStatsResult();		
 
 	}
+	
 	
 	public static void printStatsResult() {
 		
@@ -106,6 +108,7 @@ public class SortingTestApp {
 		
 	}
 	
+	
 	public static void generateCSVResult(){
 
 		Path randMergePath = Paths.get(resultPath.toString(), "mergesort_rand.csv");
@@ -132,6 +135,7 @@ public class SortingTestApp {
 
 	}
 	
+	
 	public static void writeSortStatsCSV(String writePath, ArrayList<SortStatistic> statsToWrite) throws IOException{
 
 		CSVWriter writer = new CSVWriter(new FileWriter(writePath));
@@ -151,6 +155,7 @@ public class SortingTestApp {
 		writer.close();
 
 	}
+	
 	
 	public static void readCSVDataSet(){
 
@@ -267,20 +272,6 @@ public class SortingTestApp {
 		}
 		writer.close();
 
-	}
-
-	
-	private static ArrayList<Integer> readCSVToArrayList(String csvpath) throws IOException{
-
-		ArrayList<Integer> returnArrayList = new ArrayList<Integer>();
-		CSVReader csvReader = new CSVReader(new FileReader(csvpath));
-		String[] row = null;
-		while((row = csvReader.readNext()) != null) {
-			returnArrayList.add(Integer.parseInt(row[0]));
-		}
-		csvReader.close();
-		return returnArrayList;
-		
 	}
 
 	
