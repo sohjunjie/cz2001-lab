@@ -20,6 +20,7 @@ public class SortingTestApp {
 	public static ArrayList<SortStatistic> asceQuickSortStatistic = new ArrayList<SortStatistic>();
 	public static ArrayList<SortStatistic> descQuickSortStatistic = new ArrayList<SortStatistic>();
 	
+	
 	public static void main(String[] args) {
 		
 		generateCSVDataSet();
@@ -28,8 +29,86 @@ public class SortingTestApp {
 		
 		generateCSVResult();
 		
-	}
+		printStatsResult();		
 
+	}
+	
+	
+	public static void printStatsResult() {
+		
+		SortStatistic record = null;
+		
+		System.out.println("****************************Merge sort****************************");
+
+		
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "mergesort_random", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<randMergeSortStatistic.size(); i++) {
+        	record = randMergeSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "mergesort_ascending", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<asceMergeSortStatistic.size(); i++) {
+        	record = asceMergeSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+        
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "mergesort_descending", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<descMergeSortStatistic.size(); i++) {
+        	record = descMergeSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+		
+		System.out.println();
+		System.out.println();
+		
+		System.out.println("****************************Quick sort****************************");
+		
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "quicksort_random", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<randQuickSortStatistic.size(); i++) {
+        	record = randQuickSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+		
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "quicksort_ascending", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<asceQuickSortStatistic.size(); i++) {
+        	record = asceQuickSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "quicksort_descending", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<descQuickSortStatistic.size(); i++) {
+        	record = descQuickSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+		
+	}
+	
+	
 	public static void generateCSVResult(){
 
 		Path randMergePath = Paths.get(resultPath.toString(), "mergesort_rand.csv");
@@ -46,15 +125,16 @@ public class SortingTestApp {
 			writeSortStatsCSV(asceMergePath.toString(), asceMergeSortStatistic);
 			writeSortStatsCSV(descMergePath.toString(), descMergeSortStatistic);
 
-//			writeSortStatsCSV(randQuickPath.toString(), randQuickSortStatistic);
-//			writeSortStatsCSV(asceQuickPath.toString(), asceQuickSortStatistic);
-//			writeSortStatsCSV(descQuickPath.toString(), descQuickSortStatistic);
+			writeSortStatsCSV(randQuickPath.toString(), randQuickSortStatistic);
+			writeSortStatsCSV(asceQuickPath.toString(), asceQuickSortStatistic);
+			writeSortStatsCSV(descQuickPath.toString(), descQuickSortStatistic);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
+	
 	
 	public static void writeSortStatsCSV(String writePath, ArrayList<SortStatistic> statsToWrite) throws IOException{
 
@@ -75,6 +155,7 @@ public class SortingTestApp {
 		writer.close();
 
 	}
+	
 	
 	public static void readCSVDataSet(){
 
@@ -126,7 +207,20 @@ public class SortingTestApp {
 			
 			
 			// START QUICK SORT STATISTICS RECORDING
+			start 	= System.nanoTime();
+			QuickSort.quickSort(randNumberArray2, 0, maxData-1);
+			end 	= System.nanoTime();
+			randQuickSortStatistic.add(new SortingTestApp().new SortStatistic(maxData, QuickSort.getCompCount(), end-start));
+
+			start 	= System.nanoTime();
+			QuickSort.quickSort(asceNumberArray2, 0, maxData-1);
+			end 	= System.nanoTime();
+			asceQuickSortStatistic.add(new SortingTestApp().new SortStatistic(maxData, QuickSort.getCompCount(), end-start));
 			
+			start 	= System.nanoTime();
+			QuickSort.quickSort(descNumberArray2, 0, maxData-1);
+			end 	= System.nanoTime();
+			descQuickSortStatistic.add(new SortingTestApp().new SortStatistic(maxData, QuickSort.getCompCount(), end-start));
 
 		}
 
@@ -178,20 +272,6 @@ public class SortingTestApp {
 		}
 		writer.close();
 
-	}
-
-	
-	private static ArrayList<Integer> readCSVToArrayList(String csvpath) throws IOException{
-
-		ArrayList<Integer> returnArrayList = new ArrayList<Integer>();
-		CSVReader csvReader = new CSVReader(new FileReader(csvpath));
-		String[] row = null;
-		while((row = csvReader.readNext()) != null) {
-			returnArrayList.add(Integer.parseInt(row[0]));
-		}
-		csvReader.close();
-		return returnArrayList;
-		
 	}
 
 	
