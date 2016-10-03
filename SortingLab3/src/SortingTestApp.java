@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+
 public class SortingTestApp {
 	
 	public static final Path 	dataPath 	= Paths.get(System.getProperty("user.dir"), "data");
@@ -19,7 +20,7 @@ public class SortingTestApp {
 	public static ArrayList<SortStatistic> randQuickSortStatistic = new ArrayList<SortStatistic>();
 	public static ArrayList<SortStatistic> asceQuickSortStatistic = new ArrayList<SortStatistic>();
 	public static ArrayList<SortStatistic> descQuickSortStatistic = new ArrayList<SortStatistic>();
-	
+
 	
 	public static void main(String[] args) {
 		
@@ -33,7 +34,14 @@ public class SortingTestApp {
 
 	}
 	
-	
+	/**
+	 * Print statistics results for dummy data run by QuickSort and MergeSort.
+	 * Requires data from all the following static global variable in printing
+	 * the statistics results:
+	 * 
+	 * 1) randMergeSortStatistic 2) asceMergeSortStatistic 3) descMergeSortStatistic
+	 * 4) randQuickSortStatistic 5) asceQuickSortStatistic 6) descQuickSortStatistic
+	 */	
 	public static void printStatsResult() {
 		
 		SortStatistic record = null;
@@ -140,7 +148,13 @@ public class SortingTestApp {
 
 	}
 	
-	
+	/**
+	 * Write sorting statistic data into a csv file.
+	 * 
+	 * @param writePath 	Directory path to write the csv file to
+	 * @param statsToWrite 	ArrayList of SortStatistic object recording performance statistics of a sorting algorithm
+	 * @throws IOException
+	 */
 	public static void writeSortStatsCSV(String writePath, ArrayList<SortStatistic> statsToWrite) throws IOException{
 
 		CSVWriter writer = new CSVWriter(new FileWriter(writePath));
@@ -161,7 +175,17 @@ public class SortingTestApp {
 
 	}
 	
-	
+	/**
+	 * Read csv data set from a pre-defined file directory into an array
+	 * and then runs it against sorting algorithms. Statistics generated
+	 * from the run are recorded into an ArrayList of SortStatistic object.
+	 * 
+	 * Execution of this method assumes csv data set to read from
+	 * exists in the data folder of the project directory.
+	 * 
+	 * The static method generateCSVDataSet should be executed before this 
+	 * method.
+	 */
 	public static void readCSVDataSet(){
 
 		long start, end;
@@ -231,7 +255,13 @@ public class SortingTestApp {
 
 	}
 
-	
+	/**
+	 * Generate dummy data set and save it into a csv file
+	 * in a pre-defined directory.
+	 * 
+	 * Generated data set is to be used to test performance
+	 * of sorting algorithms.
+	 */
 	public static void generateCSVDataSet(){
 
 		Path randPath, ascePath, descPath;
@@ -267,7 +297,14 @@ public class SortingTestApp {
 		
 	}
 
-	
+	/**
+	 * Write numbers stored in an ArrayList into a csv file
+	 * and save it.
+	 * 
+	 * @param numberList 	ArrayList containing numbers
+	 * @param csvpath		Directory to save csv file
+	 * @throws IOException
+	 */
 	private static void writeArrayListCSV(ArrayList<Integer> numberList, String csvpath) throws IOException{
 
 		CSVWriter writer = new CSVWriter(new FileWriter(csvpath));
@@ -279,7 +316,14 @@ public class SortingTestApp {
 
 	}
 
-	
+	/**
+	 * Read data set in csv into an array.
+	 * 
+	 * @param csvpath	Path of csv data set to read from
+	 * @param size		Number of records in csv data set to read and store into the array
+	 * @return			Array of integer number as recorded in the csv data set
+	 * @throws IOException
+	 */
 	private static int[] readCSVToArray(String csvpath, int size) throws IOException{
 
 		int[] returnArray = new int[size];
@@ -300,6 +344,10 @@ public class SortingTestApp {
 	}
 	
 	
+	/**
+	 * Object to organise key performance observation of a sorting alogrithm
+	 * on a dummy data set
+	 */
 	public class SortStatistic {
 		public int nsize;
 		public long timeTaken;
@@ -309,8 +357,7 @@ public class SortingTestApp {
 			this.nsize = nsize;
 			this.timeTaken = timeTaken;
 			this.keyCompCount = keyCompCount;
-		}
-		
+		}		
 	}
 	
 }
