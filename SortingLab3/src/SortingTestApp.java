@@ -106,6 +106,8 @@ public class SortingTestApp {
 		System.out.println("+----------------------------------------------------------------+");
 		System.out.println();
 		
+		System.out.println("CSV results was generated in: " + resultPath.toString());
+		
 	}
 	
 	
