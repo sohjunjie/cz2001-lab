@@ -1,5 +1,3 @@
-package cz2001_lab3_quicksort;
-
 public class quicksort {
 public quicksort(){}
 	
