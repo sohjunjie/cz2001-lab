@@ -46,9 +46,9 @@ public class SortingTestApp {
 			writeSortStatsCSV(asceMergePath.toString(), asceMergeSortStatistic);
 			writeSortStatsCSV(descMergePath.toString(), descMergeSortStatistic);
 
-//			writeSortStatsCSV(randQuickPath.toString(), randQuickSortStatistic);
-//			writeSortStatsCSV(asceQuickPath.toString(), asceQuickSortStatistic);
-//			writeSortStatsCSV(descQuickPath.toString(), descQuickSortStatistic);
+			writeSortStatsCSV(randQuickPath.toString(), randQuickSortStatistic);
+			writeSortStatsCSV(asceQuickPath.toString(), asceQuickSortStatistic);
+			writeSortStatsCSV(descQuickPath.toString(), descQuickSortStatistic);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -126,7 +126,20 @@ public class SortingTestApp {
 			
 			
 			// START QUICK SORT STATISTICS RECORDING
+			start 	= System.nanoTime();
+			QuickSort.quickSort(randNumberArray2, 0, maxData-1);
+			end 	= System.nanoTime();
+			randQuickSortStatistic.add(new SortingTestApp().new SortStatistic(maxData, QuickSort.getCompCount(), end-start));
+
+			start 	= System.nanoTime();
+			QuickSort.quickSort(asceNumberArray2, 0, maxData-1);
+			end 	= System.nanoTime();
+			asceQuickSortStatistic.add(new SortingTestApp().new SortStatistic(maxData, QuickSort.getCompCount(), end-start));
 			
+			start 	= System.nanoTime();
+			QuickSort.quickSort(descNumberArray2, 0, maxData-1);
+			end 	= System.nanoTime();
+			descQuickSortStatistic.add(new SortingTestApp().new SortStatistic(maxData, QuickSort.getCompCount(), end-start));
 
 		}
 
