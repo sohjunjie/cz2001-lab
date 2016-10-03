@@ -28,8 +28,85 @@ public class SortingTestApp {
 		
 		generateCSVResult();
 		
+		printStatsResult();
+		
+		
 	}
+	
+	public static void printStatsResult() {
+		
+		SortStatistic record = null;
+		
+		System.out.println("****************************Merge sort****************************");
 
+		
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "mergesort_random", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<randMergeSortStatistic.size(); i++) {
+        	record = randMergeSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "mergesort_ascending", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<asceMergeSortStatistic.size(); i++) {
+        	record = asceMergeSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+        
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "mergesort_descending", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<descMergeSortStatistic.size(); i++) {
+        	record = descMergeSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+		
+		System.out.println();
+		System.out.println();
+		
+		System.out.println("****************************Quick sort****************************");
+		
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "quicksort_random", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<randQuickSortStatistic.size(); i++) {
+        	record = randQuickSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+		
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "quicksort_ascending", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<asceQuickSortStatistic.size(); i++) {
+        	record = asceQuickSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+
+		System.out.println("+----------------------------------------------------------------+");
+        System.out.format("|%-20s|%-10s|%-16s|%-15s|%n", "quicksort_descending", "array_size", "comparison_count", "nano_time_taken");
+		System.out.println("+----------------------------------------------------------------+");
+        for(int i=0; i<descQuickSortStatistic.size(); i++) {
+        	record = descQuickSortStatistic.get(i);
+        	System.out.format("|%-20d|%-10d|%-16d|%-15d|%n", i+1, record.nsize, record.keyCompCount, record.timeTaken);
+        }
+		System.out.println("+----------------------------------------------------------------+");
+		System.out.println();
+		
+	}
+	
 	public static void generateCSVResult(){
 
 		Path randMergePath = Paths.get(resultPath.toString(), "mergesort_rand.csv");
