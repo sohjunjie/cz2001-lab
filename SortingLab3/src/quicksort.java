@@ -1,6 +1,16 @@
 public class quicksort {
-public quicksort(){}
 	
+public quicksort(){}
+
+public static int comparisonCount = 0;
+
+public static int getCompCount() {
+	int x;
+	x = comparisonCount;
+	comparisonCount = 0;
+	return x;
+}
+
 public void quickSort(int[] arr, int n, int m)		//n is position 0, m is position of last element
 {
 	int pivot_pos;
@@ -22,6 +32,7 @@ public int partition(int[] arr, int low, int high)	//from lecture notes
 	last_small = low;
 	for(i=low+1;i<=high;i++)
 	{
+		comparisonCount++;
 		if(arr[i]<arr[pivot])
 		{
 			temp=arr[last_small+1];
