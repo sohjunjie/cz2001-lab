@@ -24,13 +24,17 @@ public class SortingTestApp {
 	
 	public static void main(String[] args) {
 		
+		// generate data set to csv file
 		generateCSVDataSet();
 		
+		// read data set and run against sorting algorithm
 		readCSVDataSet();
 		
+		// generate performance statistics of sorting algorithm to csv file
 		generateCSVResult();
 		
-		printStatsResult();		
+		// print performance statistics of sorting algorithm in console
+		printStatsResult();
 
 	}
 	
