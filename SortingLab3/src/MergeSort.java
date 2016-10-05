@@ -1,14 +1,14 @@
 public class MergeSort {
 	
-	public static int comparisonCount = 0;
+	private int comparisonCount = 0;
 	
-	public static int getCompCount() {
+	public int getCompCount() {
 		int x;
 		x = comparisonCount;
 		comparisonCount = 0;
 		return x;
 	}
-
+	
 	/**
 	 * Mergesort algorithm sorting in ascending order
 	 * 
@@ -16,7 +16,7 @@ public class MergeSort {
 	 * @param low	first index of array
 	 * @param high	last index of array
 	 */
-	public static void mergeSort(int[] E, int low, int high){
+	public void mergeSort(int[] E, int low, int high){
 
 		if(low >= high)
 			return;
@@ -35,7 +35,7 @@ public class MergeSort {
 	 * @param low	first index of 1st sorted sub array
 	 * @param high	last index of 2nd sorted sub array
 	 */
-	public static void merge(int[] E, int low, int high){
+	public void merge(int[] E, int low, int high){
 
 		if(low >= high) return;
 
