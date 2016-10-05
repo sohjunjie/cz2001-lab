@@ -125,7 +125,9 @@ public class SortingTestApp {
 		
 	}
 	
-	
+	/**
+	 * Generate csv statistics result for mergesort and quicksort algorithm
+	 */
 	public static void generateCSVResult(){
 
 		Path randMergePath = Paths.get(resultPath.toString(), "mergesort_rand.csv");
