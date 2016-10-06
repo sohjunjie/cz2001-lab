@@ -50,6 +50,7 @@ public class SortingTestApp {
 		
 		SortStatistic record = null;
 		
+		System.out.println();
 		System.out.println("****************************Merge sort****************************");
 
 		
@@ -224,23 +225,24 @@ public class SortingTestApp {
 				e.printStackTrace();
 			}
 
-			// Activate sorting algorithm before actual test to prevent
-			// bias due to memory caching of sorting object
-			MergeSort m = new MergeSort();
-			m.mergeSort(asceNumberArray, 0, asceNumberArray.length-1);
-			
-			// START MERGE SORT STATISTICS RECORDING
+
+			// START MERGESORT ALGORITHM TEST
+			System.out.format("%-15s", "Mergesort" + maxData);
+			System.out.print(" [");
 			recordMergeSortStats(asceNumberArray, asceMergeSortStatistic);
 			recordMergeSortStats(descNumberArray, descMergeSortStatistic);
 			recordMergeSortStats(randNumberArray, randMergeSortStatistic);
+			System.out.print("]");
+			System.out.println();
 
-			QuickSort q = new QuickSort();
-			q.quickSort(asceNumberArray2, 0, asceNumberArray.length-1);
-			// START QUICK SORT STATISTICS RECORDING
+			// START QUICKSORT ALGORITHM TEST
+			System.out.format("%-15s", "Quicksort" + maxData);
+			System.out.print(" [");
 			recordQuickSortStats(asceNumberArray2, asceQuickSortStatistic);
 			recordQuickSortStats(descNumberArray2, descQuickSortStatistic);
 			recordQuickSortStats(randNumberArray2, randQuickSortStatistic);
-
+			System.out.print("]");
+			System.out.println();
 		}
 
 	}
@@ -249,30 +251,50 @@ public class SortingTestApp {
 	 * Record MergeSort performance stats into SortStatistic object
 	 * @param arr				array to sort
 	 * @param arrSortStatistic	array to add SortStatistic records into
+	 * @param operationName		string to print to console when method is run
 	 */
 	public static void recordMergeSortStats(int[] arr, ArrayList<SortStatistic> arrSortStatistic){
-		long start, end;
+		long start, end, totalTime;
+		int[] arrClone = null;
 		MergeSort m = new MergeSort();
 		
-		start 	= System.nanoTime();
-		m.mergeSort(arr, 0, arr.length-1);
-		end 	= System.nanoTime();
-		arrSortStatistic.add(new SortingTestApp().new SortStatistic(arr.length, m.getCompCount(), end-start));
+		totalTime = 0;
+		for(int i=0; i<1000; i++){	// run algorithm 1000 times for accurate time capture
+			arrClone = arr.clone();
+			start 	= System.nanoTime();
+			m.mergeSort(arrClone, 0, arr.length-1);
+			end 	= System.nanoTime();
+			totalTime += (end-start);			
+			if(i >= 999)
+				arrSortStatistic.add(new SortingTestApp().new SortStatistic(arrClone.length, m.getCompCount(), totalTime/1000));			
+			if(i % 100 == 99)
+				System.out.print("#");			
+		}
 	}
 	
 	/**
 	 * Record QuicSort performance stats into SortStatistic object
 	 * @param arr				array to sort
 	 * @param arrSortStatistic	array to add SortStatistic records into
+	 * @param operationName		string to print to console when method is run
 	 */
 	public static void recordQuickSortStats(int[] arr, ArrayList<SortStatistic> arrSortStatistic){
-		long start, end;
+		long start, end, totalTime;
+		int[] arrClone = null;
 		QuickSort q = new QuickSort();
-		
-		start 	= System.nanoTime();
-		q.quickSort(arr, 0, arr.length-1);
-		end 	= System.nanoTime();
-		arrSortStatistic.add(new SortingTestApp().new SortStatistic(arr.length, q.getCompCount(), end-start));
+
+		totalTime = 0;
+		for(int i=0; i<1000; i++){	// run algorithm 1000 times for accurate time capture
+			arrClone = arr.clone();
+			start 	= System.nanoTime();
+			q.quickSort(arrClone, 0, arr.length-1);
+			end 	= System.nanoTime();
+			totalTime += (end-start);			
+			if(i >= 999)
+				arrSortStatistic.add(new SortingTestApp().new SortStatistic(arrClone.length, q.getCompCount(), totalTime/1000));			
+			if(i % 100 == 99)
+				System.out.print("#");
+		}
 	}
 	
 	/**
