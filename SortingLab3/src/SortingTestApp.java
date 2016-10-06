@@ -268,7 +268,8 @@ public class SortingTestApp {
 			if(i >= 999)
 				arrSortStatistic.add(new SortingTestApp().new SortStatistic(arrClone.length, m.getCompCount(), totalTime/1000));			
 			if(i % 100 == 99)
-				System.out.print("#");			
+				System.out.print("#");
+			m.resetCompCount();
 		}
 	}
 	
@@ -289,11 +290,12 @@ public class SortingTestApp {
 			start 	= System.nanoTime();
 			q.quickSort(arrClone, 0, arr.length-1);
 			end 	= System.nanoTime();
-			totalTime += (end-start);			
+			totalTime += (end-start);
 			if(i >= 999)
 				arrSortStatistic.add(new SortingTestApp().new SortStatistic(arrClone.length, q.getCompCount(), totalTime/1000));			
 			if(i % 100 == 99)
 				System.out.print("#");
+			q.resetCompCount();
 		}
 	}
 	

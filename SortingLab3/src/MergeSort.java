@@ -9,6 +9,10 @@ public class MergeSort {
 		return x;
 	}
 	
+	public void resetCompCount(){
+		comparisonCount = 0;
+	}
+	
 	/**
 	 * Mergesort algorithm sorting in ascending order
 	 * 

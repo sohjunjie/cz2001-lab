@@ -8,6 +8,10 @@ public class QuickSort {
 		comparisonCount = 0;
 		return x;
 	}
+	
+	public void resetCompCount(){
+		comparisonCount = 0;
+	}
 
 	/**
 	 * Quicksort algorithm sorting in ascending
