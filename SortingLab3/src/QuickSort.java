@@ -1,12 +1,16 @@
 public class QuickSort {
 
-	public static int comparisonCount = 0;
+	private int comparisonCount = 0;
 
-	public static int getCompCount() {
+	public int getCompCount() {
 		int x;
 		x = comparisonCount;
 		comparisonCount = 0;
 		return x;
+	}
+	
+	public void resetCompCount(){
+		comparisonCount = 0;
 	}
 
 	/**
@@ -16,7 +20,7 @@ public class QuickSort {
 	 * @param n		first index of array
 	 * @param m		last index of array
 	 */
-	public static void quickSort(int[] arr, int n, int m) {
+	public void quickSort(int[] arr, int n, int m) {
 		int pivot_pos;
 		if(arr== null || arr.length==0)	return;
 		if(n>=m)	return;
@@ -34,7 +38,7 @@ public class QuickSort {
 	 * @param high	last index of array
 	 * @return		position of partition pivot
 	 */
-	public static int partition(int[] arr, int low, int high) {
+	public int partition(int[] arr, int low, int high) {
 
 		int last_small, pivot, temp;
 		int mid = (low+high)/2;
