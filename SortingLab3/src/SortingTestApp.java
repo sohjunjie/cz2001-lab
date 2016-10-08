@@ -198,15 +198,9 @@ public class SortingTestApp {
 		long start, end;
 		Path randPath, ascePath, descPath;
 		
-		//array for merge sort
 		int[] randNumberArray = null;
 		int[] asceNumberArray = null;
 		int[] descNumberArray = null;
-
-		//array for quick sort
-		int[] randNumberArray2 = null;
-		int[] asceNumberArray2 = null;
-		int[] descNumberArray2 = null;
 		
 		for (int maxData  : numOfData) {
 
@@ -218,9 +212,6 @@ public class SortingTestApp {
 				randNumberArray = readCSVToArray(randPath.toString(), maxData);
 				asceNumberArray = readCSVToArray(ascePath.toString(), maxData);
 				descNumberArray = readCSVToArray(descPath.toString(), maxData);
-				randNumberArray2 = randNumberArray.clone();
-				asceNumberArray2 = asceNumberArray.clone();
-				descNumberArray2 = descNumberArray.clone();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -238,9 +229,9 @@ public class SortingTestApp {
 			// START QUICKSORT ALGORITHM TEST
 			System.out.format("%-15s", "Quicksort" + maxData);
 			System.out.print(" [");
-			recordQuickSortStats(asceNumberArray2, asceQuickSortStatistic);
-			recordQuickSortStats(descNumberArray2, descQuickSortStatistic);
-			recordQuickSortStats(randNumberArray2, randQuickSortStatistic);
+			recordQuickSortStats(asceNumberArray, asceQuickSortStatistic);
+			recordQuickSortStats(descNumberArray, descQuickSortStatistic);
+			recordQuickSortStats(randNumberArray, randQuickSortStatistic);
 			System.out.print("]");
 			System.out.println();
 		}
