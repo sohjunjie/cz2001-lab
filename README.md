@@ -17,9 +17,17 @@ Follow the following instructions to clone the project files into your Eclipse I
 
 
 
-## Cloning project
+## Pulling changes to the project
 
-   git clone git@github.com:sohjunjie/cz2001-lab.git
+####**Switch to master branch**
+
+   The master branch is the most definitive branch containing the latest working 
+   copy of the project in github. Pull the latest changes by right clicking the project
+   folder then
+
+  `Team > Switch To... > Master  # if not in master branch`  
+  `Team > Pull                   # get latest changes`  
+
 
 
 ## Pull Request, additions, changes to code, etc
