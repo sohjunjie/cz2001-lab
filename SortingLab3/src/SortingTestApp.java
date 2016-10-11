@@ -195,7 +195,6 @@ public class SortingTestApp {
 	 */
 	public static void readCSVDataSet(){
 
-		long start, end;
 		Path randPath, ascePath, descPath;
 		
 		int[] randNumberArray = null;
@@ -242,7 +241,6 @@ public class SortingTestApp {
 	 * Record MergeSort performance stats into SortStatistic object
 	 * @param arr				array to sort
 	 * @param arrSortStatistic	array to add SortStatistic records into
-	 * @param operationName		string to print to console when method is run
 	 */
 	public static void recordMergeSortStats(int[] arr, ArrayList<SortStatistic> arrSortStatistic){
 		long start, end, totalTime;
@@ -268,7 +266,6 @@ public class SortingTestApp {
 	 * Record QuicSort performance stats into SortStatistic object
 	 * @param arr				array to sort
 	 * @param arrSortStatistic	array to add SortStatistic records into
-	 * @param operationName		string to print to console when method is run
 	 */
 	public static void recordQuickSortStats(int[] arr, ArrayList<SortStatistic> arrSortStatistic){
 		long start, end, totalTime;
