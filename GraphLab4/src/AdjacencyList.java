@@ -1,7 +1,10 @@
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-public class AdjacencyList { // class constructor
+public class AdjacencyList implements Serializable{ // class constructor
+
+	private static final long serialVersionUID = 7073346916300226118L;
 	private final LinkedHashMap<Vertex,LinkedList<Vertex>>  adjacencyList;   // LinkedHashmap : The key is a vertex - value is LinkedList of adjacent vertices
 	private final LinkedHashMap<Integer, Vertex> idToVertex;                 // LinkedHashMap : The key is integer from 0 to (Vertices - 1) - Value is Vertex with corresponding id
 	
@@ -16,9 +19,9 @@ public class AdjacencyList { // class constructor
 		}
 	}
 	
-	public void addEdge(int startVertexNum, int endVertexNum){  // Method to add edge in adjacency List given integer id of startVertex and endVertex
-		Vertex startVertex, endVertex;                          // Declare startVertex and endVertex
-		LinkedList <Vertex> linkedListOne,linkedListTwo;        // Declare two LinkedLists to hold adjacency lists of startVertex and endVertex
+	public void addEdge(int startVertexNum, int endVertexNum){
+		Vertex startVertex, endVertex;
+		LinkedList <Vertex> linkedListOne, linkedListTwo;        // Declare two LinkedLists to hold adjacency lists of startVertex and endVertex
 		
 		startVertex = idToVertex.get(startVertexNum);           // Input startVertex id to get corresponding startVertex from LinkedhashMap
 		endVertex = idToVertex.get(endVertexNum);               // Input endVertex id to get corresponding endVertex from LinkedhashMap
