@@ -1,0 +1,19 @@
+Vertices = 5000,    Edge = 1000    nanoTimeTaken = 346624563
+
+Vertices = 5000,    Edge = 5000    nanoTimeTaken = 2176798952
+
+Vertices = 5000,    Edge = 10000    nanoTimeTaken = 3435855186
+
+Vertices = 5000,    Edge = 50000    nanoTimeTaken = 7724860948
+
+Vertices = 5000,    Edge = 100000    nanoTimeTaken = 14651576293
+
+Vertices = 10000,    Edge = 1000    nanoTimeTaken = 2603694340
+
+Vertices = 10000,    Edge = 5000    nanoTimeTaken = 3093516153
+
+Vertices = 10000,    Edge = 10000    nanoTimeTaken = 16389277580
+
+Vertices = 10000,    Edge = 50000    nanoTimeTaken = 63486615257
+
+Vertices = 10000,    Edge = 100000    nanoTimeTaken = 149612932113
