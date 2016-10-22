@@ -10,6 +10,7 @@ public class GraphSet {  //GraphSet class
 		graphArray = new Graph[5];  // initialize array of graphs
 		
 		for(int i = 0; i<5;i++){
+			System.out.print(i);
 			graphArray[i] = new Graph(this.V);  //Initialize graph in array
 			graphArray[i].generateRandomGraph(numOfEdges[i]); // invoke generateRandomGraph on graph and pass number of edges required
 		}

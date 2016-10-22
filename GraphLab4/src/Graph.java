@@ -3,7 +3,7 @@ import java.util.Queue;
 
 public class Graph {
 
-	private final int V;                   // Number of vertices of graph
+	private int V;                   // Number of vertices of graph
 	private int E;                         // Number of edges of graph
 	private AdjacencyList adjacencyList;   // adjacency list of graph
 	private int[][] matrixDistance;       // matrixDistance to keep track of shortest path distance between vertices. 
@@ -34,8 +34,7 @@ public class Graph {
 			adjacencyList.addEdge(startVertexNum, endVertexNum); // Add edge to adjacency list
 	}
 	
-	public boolean edgeAlreadyPresent(int startVertexNum, int endVertexNum){ //Method to check whether edge is already 
-		                                                                    // present in graph
+	public boolean edgeAlreadyPresent(int startVertexNum, int endVertexNum){
 		return (adjacencyList.edgeAlreadyPresent(startVertexNum, endVertexNum)); //Invoke corresponding method of AdjacencyList class
 	}
 	
@@ -69,36 +68,39 @@ public class Graph {
 	// 14.            push iteratorVertex to queue
 	
 	private void runBFS(int startVertexNum){ //Method to run BFS given id of startVertex
-		Vertex startVertex = adjacencyList.getVertex(startVertexNum); //Get startVertex given id of startVertex
+
+		Vertex startVertex = adjacencyList.getVertex(startVertexNum);
 		Vertex vertex;  // vertex for processing
 		LinkedList<Vertex> adjacencyListOfVertex; // adjacencyListOfVertex to hold adjacency list of given vertex
 		Queue<Vertex> queue = new LinkedList<>(); // Queue to hold vertex
 		
-		for(int i = 0; i<this.getV(); i++){        //Iterate over all vertices of graph
-			vertex = adjacencyList.getVertex(i);   // Get vertex from adjacencyList of graph
-			vertex.unMark();                       //Unmark vertex
-			matrixDistance[startVertex.getId()][vertex.getId()] = -1; //set distance from startVertex to vertex = -1
+		// unmark all graph vertices and set default distance from startVertex
+		for(int i = 0; i < this.getV(); i++){
+			vertex = adjacencyList.getVertex(i);
+			vertex.unMark();
+			matrixDistance[startVertex.getId()][vertex.getId()] = -1;
 		}
+		
 		startVertex.mark(); //Mark startVertex
 		matrixDistance[startVertex.getId()][startVertex.getId()] = 0; //set distance of startVertex from itself = 0
 		queue.add(startVertex);  // push startVertex to queue
 		
-		while(!queue.isEmpty()){  // while queue is not empty
+		while(!queue.isEmpty()){
 			vertex = queue.remove(); // push vertex from front of queue
-			vertex.mark();          // mark this vertex
 			adjacencyListOfVertex = this.getAdjacencyListOfVertex(vertex); //retrieve adjacencyList of this vertex
 			
-			for(Vertex iteratorVertex : adjacencyListOfVertex){ // Iterate over vertices in the retrieved adjacencyList
-				if(!iteratorVertex.isMarked()){      // if iteratorVertex is unmarked
-					iteratorVertex.mark();           // mark this vertex
-					matrixDistance[startVertex.getId()][iteratorVertex.getId()] = matrixDistance[startVertex.getId()][vertex.getId()] + 1;
-					matrixPredecessor[startVertex.getId()][iteratorVertex.getId()] = vertex.getId();
-					queue.add(iteratorVertex);  // push this vertex to queue
+			for(Vertex neighborVertex : adjacencyListOfVertex){
+				if(! neighborVertex.isMarked()){
+					neighborVertex.mark();
+					matrixDistance[startVertex.getId()][neighborVertex.getId()] = matrixDistance[startVertex.getId()][vertex.getId()] + 1;
+					matrixPredecessor[startVertex.getId()][neighborVertex.getId()] = vertex.getId();
+					queue.add(neighborVertex);
 				}
 			}
 			
 		}
-		
+
+	
 	}
 	
 	public void allPairsShortestPath(){ //Method to calculate all pairs shortest path in graph
