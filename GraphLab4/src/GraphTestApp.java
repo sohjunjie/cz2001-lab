@@ -136,6 +136,8 @@ public class GraphTestApp {
 		}while(!inputValid);
 		
 		int[][] queryGraphDist = loadGraphMatrixDist("V" + numVertex + "E" + numEdge + ".dat");
+		// new code
+		int[][] queryGraphPredecessor = loadGraphMatrixPredecessor("V" + numVertex + "E" + numEdge + "Predecessor" + ".dat");
 		if(queryGraphDist == null){
 			System.out.println("Preprocessed results for graph vertex = " + numVertex + "    edge = " + numEdge + " is not available.");
 			return;
@@ -144,6 +146,7 @@ public class GraphTestApp {
 		int inputVertex1 = 0;
 		int inputVertex2 = 0;
 		int dist;
+		String shortestPathString;
 		do{
 			
 			System.out.print("Enter 1st vertex number to query (0~" + (numVertex-1) + ") :"); inputVertex1 = sc.nextInt();
@@ -157,6 +160,12 @@ public class GraphTestApp {
 			dist = queryGraphDist[inputVertex1][inputVertex2];
 			
 			System.out.println("Distance between VertexNum" + inputVertex1 + " and VertexNum" + inputVertex2 + " is " + dist + ".");
+			
+			//new code
+			if(dist != -1){
+				shortestPathString = Graph.toStringBFSPath(inputVertex1, inputVertex2, queryGraphPredecessor);
+				System.out.println(shortestPathString);
+			}
 
 		}while(true);
 		
@@ -168,6 +177,7 @@ public class GraphTestApp {
 		graph = new Graph(numVertex, numEdge);
 		graph.allPairsShortestPath();
 		saveGraphMatrixDist(graph);
+		saveGraphMatrixPredecessor(graph);
 	}
 	
 	public static String printPreprocessingStats(int numVertex, int numEdge){
@@ -209,6 +219,27 @@ public class GraphTestApp {
 		
 	}
 	
+	public static int[][] loadGraphMatrixPredecessor(String loadFileName){
+		
+		Path saveData 			= Paths.get(DATAPATH.toString(), loadFileName);
+		FileInputStream fis 	= null;
+		ObjectInputStream ois 	= null;
+		int[][] matrixPredecessor		= null;
+		
+		try {
+			fis = new FileInputStream(saveData.toString());
+			ois = new ObjectInputStream(fis);
+			matrixPredecessor = (int[][]) ois.readObject();
+			ois.close();
+		} catch (IOException ex) {
+			System.out.println(loadFileName + " not found or does not exists.");
+		} catch (ClassCastException|ClassNotFoundException ex) {
+			System.out.println("Data file " + loadFileName + " is corrupted.");
+		}
+		
+		return matrixPredecessor;	
+	}
+	
 	public static void saveGraphMatrixDist(Graph graph){
 		
 		String	saveFileName = "V" + graph.getnumVertices() + "E" + graph.getNumEdges() + ".dat";
@@ -225,6 +256,23 @@ public class GraphTestApp {
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	public static void saveGraphMatrixPredecessor(Graph graph){
+		
+		String saveFileName = "V" + graph.getnumVertices() + "E" + graph.getNumEdges() + "Predecessor" + ".dat";
+		Path saveFilePath = Paths.get(DATAPATH.toString(), saveFileName);
+		FileOutputStream   	fos 			= null;
+		ObjectOutputStream 	oos 			= null;
+		
+		try {
+			fos = new FileOutputStream(saveFilePath.toString());
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(graph.getMatrixPredecessor());
+			oos.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 	
 	
