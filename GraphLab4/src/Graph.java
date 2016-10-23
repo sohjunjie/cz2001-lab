@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Graph implements Serializable{
 
@@ -18,6 +19,9 @@ public class Graph implements Serializable{
 	public int getNumEdges(){ return numEdges; }
 	public int[][] getMatrixDistance(){ return this.matrixDistance; }
 	
+	public int[][] getMatrixPredecessor() {
+		return matrixPredecessor;
+	}
 	public Graph(int numVertices, int numEdges){
 		this.numVertices = numVertices;
 		this.numEdges = 0;
@@ -91,4 +95,30 @@ public class Graph implements Serializable{
 		for(int i = 0;i < this.numVertices;i++)   //Run the BFS algorithm on all vertices of graph
 			this.runBFS(i);
 	}
+	
+	public static String toStringBFSPath(int startVertexNum, int endVertexNum, int[][]matrixPredecessor){
+		Stack<Integer> s = new Stack<Integer>();
+		StringBuilder stringBuilder = new StringBuilder();
+
+		while(endVertexNum != startVertexNum){
+			s.push(endVertexNum);
+			endVertexNum = matrixPredecessor[startVertexNum][endVertexNum];
+		}
+		s.push(endVertexNum);
+		
+        while(!s.empty()){
+            int tmp = s.pop();
+            if(!s.isEmpty()){
+                stringBuilder.append((tmp) + "->");
+                 
+            }
+            else{
+            	stringBuilder.append(tmp);
+            }
+        }
+        stringBuilder.append("\n");
+	
+		
+		return stringBuilder.toString();
+    }
 }
